@@ -1,18 +1,11 @@
-import { RuleProperties } from 'json-rules-engine';
-import { Operators } from '@app/operators/operators';
+import { z } from 'zod';
 
-export const greaterThanExampleRule: RuleProperties = {
-  conditions: {
-    all: [
-      {
-        fact: 'example',
-        path: 'value',
-        operator: Operators.IS_GREATER_THAN,
-        value: 10,
-      },
-    ],
-  },
-  event: {
-    type: 'ExampleIsGreaterThanTen',
-  },
-};
+export const HasValueGreaterThanTenRule = z.object({
+  example: z.object({
+    value: z.number().refine((value) => value > 10),
+  }),
+});
+
+export type HasValueGreaterThanTenRule = z.infer<
+  typeof HasValueGreaterThanTenRule
+>;

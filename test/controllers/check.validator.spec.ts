@@ -14,24 +14,9 @@ describe('Check Validator Controller', () => {
 
       expect(response.body).toEqual({
         rules: [
-          { id: 'ExampleIsGreaterThanTen' },
-          { id: 'HasMoreThanTwoExamplesRule' },
+          { id: 'HasValueGreaterThanTenRule' },
+          { id: 'HasAtLeastTwoArrayItemsRule' },
         ],
-      });
-    });
-  });
-
-  it('should return Bad Request when request body is invalid', async () => {
-    const body = faker.datatype.json();
-    await new TestSetup().run(async (app) => {
-      const response = await request(app.getHttpServer())
-        .post('/validate')
-        .send(body)
-        .expect(400);
-
-      expect(response.body).toEqual({
-        message: 'Bad Request',
-        statusCode: 400,
       });
     });
   });
